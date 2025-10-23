@@ -13,7 +13,7 @@ from typing import List, Tuple, Optional
 # Fill this with your Gemini / Generative API key (you can paste your key here).
 # WARNING: do NOT commit your real API key to source control. This placeholder lets
 # you drop the key into the app before running locally.
-GEMINI_API_KEY: str = "AIzaSyBpr10elpzjTeCC4JxJROTTQUD-HAZGhC0"  # <-- paste your GEMINI API key here when ready
+GEMINI_API_KEY: str = ""  # <-- paste your GEMINI API key here when ready
 
 # Load the saved model
 @st.cache_resource
@@ -199,4 +199,5 @@ def classify_with_generative(image_bytes: bytes, nn_species: str, label_encoder:
     return label, confidence, explanation
 
 if __name__ == '__main__':
+
     main()
