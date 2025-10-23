@@ -1,0 +1,404 @@
+PS C:\Users\rimsh\Desktop\imageNN> python3.10 -m venv "c:\Users\rimsh\Desktop\imageNN\tf_env"; ; if ($LASTEXITCODE -ne 0) { python -m venv "c:\Users\rimsh\Desktop\imageNN\tf_env" } ; Write-Output 'venv creation exited with code: ' $LASTEXITCODE
+python3.10 : The term 'python3.10' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the spelling of 
+the name, or if a path was included, verify that the path is correct and try again.
+At line:1 char:1
++ python3.10 -m venv "c:\Users\rimsh\Desktop\imageNN\tf_env"; ; if ($LA ...
++ ~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python3.10:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+venv creation exited with code: 
+0
+PS C:\Users\rimsh\Desktop\imageNN> if (Get-Command py -ErrorAction SilentlyContinue) { try { py -3.10 --version; if ($LASTEXITCODE -eq 0) { py -3.10 -m venv "c:\Users\rimsh\Desktop\imageNN\tf_env"; Write-Output "VENv_CREATED_WITH=py-3.10" } else { Write-Output "py exists but Python 3.10 not available" } } catch { Write-Output "py launcher present but could not run py -3.10" } } else { Write-Output "py launcher not found" }; if (-Not (Test-Path "c:\Users\rimsh\Desktop\imageNN\tf_env")) { if (Get-Command python -ErrorAction SilentlyContinue) { python --version; if ($LASTEXITCODE -eq 0 -or $?) { python -m venv "c:\Users\rimsh\Desktop\imageNN\tf_env"; Write-Output "VENv_CREATED_WITH=python" } else { Write-Output "python command exists but failed" } } else { Write-Output "No python or py found on PATH" } } ; Write-Output "Done script"
+No suitable Python runtime found
+Pass --list (-0) to see all detected environments on your machine
+or set environment variable PYLAUNCHER_ALLOW_INSTALL to use winget
+or open the Microsoft Store to the requested version.
+py exists but Python 3.10 not available
+Done script
+PS C:\Users\rimsh\Desktop\imageNN> Write-Output 'Listing tf_env folder:'; if (Test-Path "c:\Users\rimsh\Desktop\imageNN\tf_env") { Get-ChildItem "c:\Users\rimsh\Desktop\imageNN\tf_env" | Select-Object Name,Mode } else { Write-Output 'tf_env not found' } ; Write-Output ''; Write-Output 'py launcher versions:'; if (Get-Command py -ErrorAction SilentlyContinue) { py -0p } else { Write-Output 'py launcher not present' } ; Write-Output ''; Write-Output 'python on PATH:'; if (Get-Command python -ErrorAction SilentlyContinue) { python --version } else { Write-Output 'python not on PATH' }
+
+Listing tf_env folder:
+
+ -V:3.13 *        C:\Users\rimsh\AppData\Local\Programs\Python\Python313\python.exe
+ -V:3.11          C:\Users\rimsh\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\python.exe
+Python 3.13.5
+Name       Mode
+----       ----
+Include    d-----
+Lib        d-----
+Scripts    d-----
+.gitignore -a----
+pyvenv.cfg -a----
+
+py launcher versions:
+
+python on PATH:
+
+
+PS C:\Users\rimsh\Desktop\imageNN> winget --version
+v1.11.430
+PS C:\Users\rimsh\Desktop\imageNN> winget search "Python 3.10"
+The `msstore` source requires that you view the following agreements before using.
+Terms of Transaction: https://aka.ms/microsoft-store-terms-of-transaction
+The source requires the current machine's 2-letter geographic region to be sent to the backend service to function properly (ex. "US").
+
+Do you agree to all the source agreements terms?
+[Y] Yes  [N] No: y
+Name        Id                 Version Source
+-----------------------------------------------
+Python 3.10 9PJPW5LDXLZ5       Unknown msstore
+Python 3.10 Python.Python.3.10 3.10.11 winget
+PS C:\Users\rimsh\Desktop\imageNN> winget install --id Python.Python.3.10 -e --accept-package-agreements --accept-source-agreements
+Found Python 3.10 [Python.Python.3.10] Version 3.10.11
+This application is licensed to you by its owner.
+Microsoft is not responsible for, nor does it grant any licenses to, third-party packages.
+Downloading https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe
+  ██████████████████████████████  27.6 MB / 27.6 MB
+Successfully verified installer hash
+Starting package install...
+Successfully installed
+PS C:\Users\rimsh\Desktop\imageNN> py -3.10 -m venv "c:\Users\rimsh\Desktop\imageNN\tf_env"; Write-Output "venv exit code: $LASTEXITCODE"; if (Test-Path "c:\Users\rimsh\Desktop\imageNN\tf_env\Scripts\activate") { & "c:\Users\rimsh\Desktop\imageNN\tf_env\Scripts\python.exe" -m pip install --upgrade pip ipykernel; & "c:\Users\rimsh\Desktop\imageNN\tf_env\Scripts\python.exe" -m ipykernel install --user --name tf_env --display-name "Python 3.10 (tf_env)"; Write-Output 'ipykernel installed and kernel registered' } else { Write-Output 'venv activation script not found' }
+venv exit code: 0
+Requirement already satisfied: pip in c:\users\rimsh\desktop\imagenn\tf_env\lib\site-packages (25.1.1)
+Collecting pip
+  Using cached pip-25.2-py3-none-any.whl.metadata (4.7 kB)
+Collecting ipykernel
+  Using cached ipykernel-6.30.1-py3-none-any.whl.metadata (6.2 kB)
+Collecting comm>=0.1.1 (from ipykernel)
+  Using cached comm-0.2.3-py3-none-any.whl.metadata (3.7 kB)
+Collecting debugpy>=1.6.5 (from ipykernel)
+  Downloading debugpy-1.8.17-cp310-cp310-win_amd64.whl.metadata (1.5 kB)
+Collecting ipython>=7.23.1 (from ipykernel)
+  Downloading ipython-8.37.0-py3-none-any.whl.metadata (5.1 kB)
+Collecting jupyter-client>=8.0.0 (from ipykernel)
+  Using cached jupyter_client-8.6.3-py3-none-any.whl.metadata (8.3 kB)
+Collecting jupyter-core!=5.0.*,>=4.12 (from ipykernel)
+  Using cached jupyter_core-5.8.1-py3-none-any.whl.metadata (1.6 kB)
+Collecting matplotlib-inline>=0.1 (from ipykernel)
+  Using cached matplotlib_inline-0.1.7-py3-none-any.whl.metadata (3.9 kB)
+Collecting nest-asyncio>=1.4 (from ipykernel)
+  Using cached nest_asyncio-1.6.0-py3-none-any.whl.metadata (2.8 kB)
+Collecting packaging>=22 (from ipykernel)
+  Using cached packaging-25.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting psutil>=5.7 (from ipykernel)
+  Using cached psutil-7.1.0-cp37-abi3-win_amd64.whl.metadata (23 kB)
+Collecting pyzmq>=25 (from ipykernel)
+  Downloading pyzmq-27.1.0-cp310-cp310-win_amd64.whl.metadata (6.0 kB)
+Collecting tornado>=6.2 (from ipykernel)
+  Downloading tornado-6.5.2-cp39-abi3-win_amd64.whl.metadata (2.9 kB)
+Collecting traitlets>=5.4.0 (from ipykernel)
+  Using cached traitlets-5.14.3-py3-none-any.whl.metadata (10 kB)
+Collecting colorama (from ipython>=7.23.1->ipykernel)
+  Using cached colorama-0.4.6-py2.py3-none-any.whl.metadata (17 kB)
+Collecting decorator (from ipython>=7.23.1->ipykernel)
+  Using cached decorator-5.2.1-py3-none-any.whl.metadata (3.9 kB)
+Collecting exceptiongroup (from ipython>=7.23.1->ipykernel)
+  Downloading exceptiongroup-1.3.0-py3-none-any.whl.metadata (6.7 kB)
+Collecting jedi>=0.16 (from ipython>=7.23.1->ipykernel)
+  Using cached jedi-0.19.2-py2.py3-none-any.whl.metadata (22 kB)
+Collecting prompt_toolkit<3.1.0,>=3.0.41 (from ipython>=7.23.1->ipykernel)
+  Using cached prompt_toolkit-3.0.52-py3-none-any.whl.metadata (6.4 kB)
+Collecting pygments>=2.4.0 (from ipython>=7.23.1->ipykernel)
+  Using cached pygments-2.19.2-py3-none-any.whl.metadata (2.5 kB)
+Collecting stack_data (from ipython>=7.23.1->ipykernel)
+  Using cached stack_data-0.6.3-py3-none-any.whl.metadata (18 kB)
+Collecting typing_extensions>=4.6 (from ipython>=7.23.1->ipykernel)
+  Using cached typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting wcwidth (from prompt_toolkit<3.1.0,>=3.0.41->ipython>=7.23.1->ipykernel)
+  Using cached wcwidth-0.2.14-py2.py3-none-any.whl.metadata (15 kB)
+Collecting parso<0.9.0,>=0.8.4 (from jedi>=0.16->ipython>=7.23.1->ipykernel)
+  Using cached parso-0.8.5-py2.py3-none-any.whl.metadata (8.3 kB)
+Collecting python-dateutil>=2.8.2 (from jupyter-client>=8.0.0->ipykernel)
+  Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+Collecting platformdirs>=2.5 (from jupyter-core!=5.0.*,>=4.12->ipykernel)
+  Using cached platformdirs-4.4.0-py3-none-any.whl.metadata (12 kB)
+Collecting pywin32>=300 (from jupyter-core!=5.0.*,>=4.12->ipykernel)
+  Downloading pywin32-311-cp310-cp310-win_amd64.whl.metadata (10 kB)
+Collecting six>=1.5 (from python-dateutil>=2.8.2->jupyter-client>=8.0.0->ipykernel)
+  Using cached six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+Collecting executing>=1.2.0 (from stack_data->ipython>=7.23.1->ipykernel)
+  Using cached executing-2.2.1-py2.py3-none-any.whl.metadata (8.9 kB)
+Collecting asttokens>=2.1.0 (from stack_data->ipython>=7.23.1->ipykernel)
+  Using cached asttokens-3.0.0-py3-none-any.whl.metadata (4.7 kB)
+Collecting pure-eval (from stack_data->ipython>=7.23.1->ipykernel)
+  Using cached pure_eval-0.2.3-py3-none-any.whl.metadata (6.3 kB)
+Using cached pip-25.2-py3-none-any.whl (1.8 MB)
+Using cached ipykernel-6.30.1-py3-none-any.whl (117 kB)
+Using cached comm-0.2.3-py3-none-any.whl (7.3 kB)
+Downloading debugpy-1.8.17-cp310-cp310-win_amd64.whl (5.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.3/5.3 MB 8.7 MB/s eta 0:00:00
+Downloading ipython-8.37.0-py3-none-any.whl (831 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 831.9/831.9 kB 12.4 MB/s eta 0:00:00
+Using cached prompt_toolkit-3.0.52-py3-none-any.whl (391 kB)
+Using cached jedi-0.19.2-py2.py3-none-any.whl (1.6 MB)
+Using cached parso-0.8.5-py2.py3-none-any.whl (106 kB)
+Using cached jupyter_client-8.6.3-py3-none-any.whl (106 kB)
+Using cached jupyter_core-5.8.1-py3-none-any.whl (28 kB)
+Using cached matplotlib_inline-0.1.7-py3-none-any.whl (9.9 kB)
+Using cached nest_asyncio-1.6.0-py3-none-any.whl (5.2 kB)
+Using cached packaging-25.0-py3-none-any.whl (66 kB)
+Using cached platformdirs-4.4.0-py3-none-any.whl (18 kB)
+Using cached psutil-7.1.0-cp37-abi3-win_amd64.whl (247 kB)
+Using cached pygments-2.19.2-py3-none-any.whl (1.2 MB)
+Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+Downloading pywin32-311-cp310-cp310-win_amd64.whl (9.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.6/9.6 MB 17.1 MB/s eta 0:00:00
+Downloading pyzmq-27.1.0-cp310-cp310-win_amd64.whl (632 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 632.2/632.2 kB 24.7 MB/s eta 0:00:00
+Using cached six-1.17.0-py2.py3-none-any.whl (11 kB)
+Downloading tornado-6.5.2-cp39-abi3-win_amd64.whl (445 kB)
+Using cached traitlets-5.14.3-py3-none-any.whl (85 kB)
+Using cached typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+Using cached colorama-0.4.6-py2.py3-none-any.whl (25 kB)
+Using cached decorator-5.2.1-py3-none-any.whl (9.2 kB)
+Downloading exceptiongroup-1.3.0-py3-none-any.whl (16 kB)
+Using cached stack_data-0.6.3-py3-none-any.whl (24 kB)
+Using cached asttokens-3.0.0-py3-none-any.whl (26 kB)
+Using cached executing-2.2.1-py2.py3-none-any.whl (28 kB)
+Using cached pure_eval-0.2.3-py3-none-any.whl (11 kB)
+Using cached wcwidth-0.2.14-py2.py3-none-any.whl (37 kB)
+Installing collected packages: pywin32, pure-eval, wcwidth, typing_extensions, traitlets, tornado, six, pyzmq, pygments, psutil, platformdirs, pip, parso, packaging, nest-asyncio, executing, decorator, debugpy, comm, colorama, asttokens, stack_data, python-dateutil, prompt_toolkit, matplotlib-inline, jupyter-core, jedi, exceptiongroup, jupyter-client, ipython, ipykernel
+  Attempting uninstall: pip
+    Found existing installation: pip 25.1.1
+    Uninstalling pip-25.1.1:
+      Successfully uninstalled pip-25.1.1
+Successfully installed asttokens-3.0.0 colorama-0.4.6 comm-0.2.3 debugpy-1.8.17 decorator-5.2.1 exceptiongroup-1.3.0 executing-2.2.1 ipykernel-6.30.1 ipython-8.37.0 jedi-0.19.2 jupyter-client-8.6.3 jupyter-core-5.8.1 matplotlib-inline-0.1.7 nest-asyncio-1.6.0 packaging-25.0 parso-0.8.5 pip-25.2 platformdirs-4.4.0 prompt_toolkit-3.0.52 psutil-7.1.0 pure-eval-0.2.3 pygments-2.19.2 python-dateutil-2.9.0.post0 pywin32-311 pyzmq-27.1.0 six-1.17.0 stack_data-0.6.3 tornado-6.5.2 traitlets-5.14.3 typing_extensions-4.15.0 wcwidth-0.2.14
+Installed kernelspec tf_env in C:\Users\rimsh\AppData\Roaming\jupyter\kernels\tf_env
+ipykernel installed and kernel registered
+PS C:\Users\rimsh\Desktop\imageNN> 
+
+PS C:\Users\rimsh\Desktop\imageNN> python3.10 -m venv "c:\Users\rimsh\Desktop\imageNN\tf_env"; ; if ($LASTEXITCODE -ne 0) { python -m venv "c:\Users\rimsh\Desktop\imageNN\tf_env" } ; Write-Output 'venv creation exited with code: ' $LASTEXITCODE
+python3.10 : The term 'python3.10' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the spelling of 
+the name, or if a path was included, verify that the path is correct and try again.
+At line:1 char:1
++ python3.10 -m venv "c:\Users\rimsh\Desktop\imageNN\tf_env"; ; if ($LA ...
++ ~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python3.10:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+venv creation exited with code: 
+0
+PS C:\Users\rimsh\Desktop\imageNN> if (Get-Command py -ErrorAction SilentlyContinue) { try { py -3.10 --version; if ($LASTEXITCODE -eq 0) { py -3.10 -m venv "c:\Users\rimsh\Desktop\imageNN\tf_env"; Write-Output "VENv_CREATED_WITH=py-3.10" } else { Write-Output "py exists but Python 3.10 not available" } } catch { Write-Output "py launcher present but could not run py -3.10" } } else { Write-Output "py launcher not found" }; if (-Not (Test-Path "c:\Users\rimsh\Desktop\imageNN\tf_env")) { if (Get-Command python -ErrorAction SilentlyContinue) { python --version; if ($LASTEXITCODE -eq 0 -or $?) { python -m venv "c:\Users\rimsh\Desktop\imageNN\tf_env"; Write-Output "VENv_CREATED_WITH=python" } else { Write-Output "python command exists but failed" } } else { Write-Output "No python or py found on PATH" } } ; Write-Output "Done script"
+No suitable Python runtime found
+Pass --list (-0) to see all detected environments on your machine
+or set environment variable PYLAUNCHER_ALLOW_INSTALL to use winget
+or open the Microsoft Store to the requested version.
+py exists but Python 3.10 not available
+Done script
+PS C:\Users\rimsh\Desktop\imageNN> Write-Output 'Listing tf_env folder:'; if (Test-Path "c:\Users\rimsh\Desktop\imageNN\tf_env") { Get-ChildItem "c:\Users\rimsh\Desktop\imageNN\tf_env" | Select-Object Name,Mode } else { Write-Output 'tf_env not found' } ; Write-Output ''; Write-Output 'py launcher versions:'; if (Get-Command py -ErrorAction SilentlyContinue) { py -0p } else { Write-Output 'py launcher not present' } ; Write-Output ''; Write-Output 'python on PATH:'; if (Get-Command python -ErrorAction SilentlyContinue) { python --version } else { Write-Output 'python not on PATH' }
+
+Listing tf_env folder:
+
+ -V:3.13 *        C:\Users\rimsh\AppData\Local\Programs\Python\Python313\python.exe
+ -V:3.11          C:\Users\rimsh\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\python.exe
+Python 3.13.5
+Name       Mode
+----       ----
+Include    d-----
+Lib        d-----
+Scripts    d-----
+.gitignore -a----
+pyvenv.cfg -a----
+
+py launcher versions:
+
+python on PATH:
+
+
+PS C:\Users\rimsh\Desktop\imageNN> winget --version
+v1.11.430
+PS C:\Users\rimsh\Desktop\imageNN> winget search "Python 3.10"
+The `msstore` source requires that you view the following agreements before using.
+Terms of Transaction: https://aka.ms/microsoft-store-terms-of-transaction
+The source requires the current machine's 2-letter geographic region to be sent to the backend service to function properly (ex. "US").
+
+Do you agree to all the source agreements terms?
+[Y] Yes  [N] No: y
+Name        Id                 Version Source
+-----------------------------------------------
+Python 3.10 9PJPW5LDXLZ5       Unknown msstore
+Python 3.10 Python.Python.3.10 3.10.11 winget
+PS C:\Users\rimsh\Desktop\imageNN> winget install --id Python.Python.3.10 -e --accept-package-agreements --accept-source-agreements
+Found Python 3.10 [Python.Python.3.10] Version 3.10.11
+This application is licensed to you by its owner.
+Microsoft is not responsible for, nor does it grant any licenses to, third-party packages.
+Downloading https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe
+  ██████████████████████████████  27.6 MB / 27.6 MB
+Successfully verified installer hash
+Starting package install...
+Successfully installed
+PS C:\Users\rimsh\Desktop\imageNN> py -3.10 -m venv "c:\Users\rimsh\Desktop\imageNN\tf_env"; Write-Output "venv exit code: $LASTEXITCODE"; if (Test-Path "c:\Users\rimsh\Desktop\imageNN\tf_env\Scripts\activate") { & "c:\Users\rimsh\Desktop\imageNN\tf_env\Scripts\python.exe" -m pip install --upgrade pip ipykernel; & "c:\Users\rimsh\Desktop\imageNN\tf_env\Scripts\python.exe" -m ipykernel install --user --name tf_env --display-name "Python 3.10 (tf_env)"; Write-Output 'ipykernel installed and kernel registered' } else { Write-Output 'venv activation script not found' }
+venv exit code: 0
+Requirement already satisfied: pip in c:\users\rimsh\desktop\imagenn\tf_env\lib\site-packages (25.1.1)
+Collecting pip
+  Using cached pip-25.2-py3-none-any.whl.metadata (4.7 kB)
+Collecting ipykernel
+  Using cached ipykernel-6.30.1-py3-none-any.whl.metadata (6.2 kB)
+Collecting comm>=0.1.1 (from ipykernel)
+  Using cached comm-0.2.3-py3-none-any.whl.metadata (3.7 kB)
+Collecting debugpy>=1.6.5 (from ipykernel)
+  Downloading debugpy-1.8.17-cp310-cp310-win_amd64.whl.metadata (1.5 kB)
+Collecting ipython>=7.23.1 (from ipykernel)
+  Downloading ipython-8.37.0-py3-none-any.whl.metadata (5.1 kB)
+Collecting jupyter-client>=8.0.0 (from ipykernel)
+  Using cached jupyter_client-8.6.3-py3-none-any.whl.metadata (8.3 kB)
+Collecting jupyter-core!=5.0.*,>=4.12 (from ipykernel)
+  Using cached jupyter_core-5.8.1-py3-none-any.whl.metadata (1.6 kB)
+Collecting matplotlib-inline>=0.1 (from ipykernel)
+  Using cached matplotlib_inline-0.1.7-py3-none-any.whl.metadata (3.9 kB)
+Collecting nest-asyncio>=1.4 (from ipykernel)
+  Using cached nest_asyncio-1.6.0-py3-none-any.whl.metadata (2.8 kB)
+Collecting packaging>=22 (from ipykernel)
+  Using cached packaging-25.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting psutil>=5.7 (from ipykernel)
+  Using cached psutil-7.1.0-cp37-abi3-win_amd64.whl.metadata (23 kB)
+Collecting pyzmq>=25 (from ipykernel)
+  Downloading pyzmq-27.1.0-cp310-cp310-win_amd64.whl.metadata (6.0 kB)
+Collecting tornado>=6.2 (from ipykernel)
+  Downloading tornado-6.5.2-cp39-abi3-win_amd64.whl.metadata (2.9 kB)
+Collecting traitlets>=5.4.0 (from ipykernel)
+  Using cached traitlets-5.14.3-py3-none-any.whl.metadata (10 kB)
+Collecting colorama (from ipython>=7.23.1->ipykernel)
+  Using cached colorama-0.4.6-py2.py3-none-any.whl.metadata (17 kB)
+Collecting decorator (from ipython>=7.23.1->ipykernel)
+  Using cached decorator-5.2.1-py3-none-any.whl.metadata (3.9 kB)
+Collecting exceptiongroup (from ipython>=7.23.1->ipykernel)
+  Downloading exceptiongroup-1.3.0-py3-none-any.whl.metadata (6.7 kB)
+Collecting jedi>=0.16 (from ipython>=7.23.1->ipykernel)
+  Using cached jedi-0.19.2-py2.py3-none-any.whl.metadata (22 kB)
+Collecting prompt_toolkit<3.1.0,>=3.0.41 (from ipython>=7.23.1->ipykernel)
+  Using cached prompt_toolkit-3.0.52-py3-none-any.whl.metadata (6.4 kB)
+Collecting pygments>=2.4.0 (from ipython>=7.23.1->ipykernel)
+  Using cached pygments-2.19.2-py3-none-any.whl.metadata (2.5 kB)
+Collecting stack_data (from ipython>=7.23.1->ipykernel)
+  Using cached stack_data-0.6.3-py3-none-any.whl.metadata (18 kB)
+Collecting typing_extensions>=4.6 (from ipython>=7.23.1->ipykernel)
+  Using cached typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting wcwidth (from prompt_toolkit<3.1.0,>=3.0.41->ipython>=7.23.1->ipykernel)
+  Using cached wcwidth-0.2.14-py2.py3-none-any.whl.metadata (15 kB)
+Collecting parso<0.9.0,>=0.8.4 (from jedi>=0.16->ipython>=7.23.1->ipykernel)
+  Using cached parso-0.8.5-py2.py3-none-any.whl.metadata (8.3 kB)
+Collecting python-dateutil>=2.8.2 (from jupyter-client>=8.0.0->ipykernel)
+  Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+Collecting platformdirs>=2.5 (from jupyter-core!=5.0.*,>=4.12->ipykernel)
+  Using cached platformdirs-4.4.0-py3-none-any.whl.metadata (12 kB)
+Collecting pywin32>=300 (from jupyter-core!=5.0.*,>=4.12->ipykernel)
+  Downloading pywin32-311-cp310-cp310-win_amd64.whl.metadata (10 kB)
+Collecting six>=1.5 (from python-dateutil>=2.8.2->jupyter-client>=8.0.0->ipykernel)
+  Using cached six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+Collecting executing>=1.2.0 (from stack_data->ipython>=7.23.1->ipykernel)
+  Using cached executing-2.2.1-py2.py3-none-any.whl.metadata (8.9 kB)
+Collecting asttokens>=2.1.0 (from stack_data->ipython>=7.23.1->ipykernel)
+  Using cached asttokens-3.0.0-py3-none-any.whl.metadata (4.7 kB)
+Collecting pure-eval (from stack_data->ipython>=7.23.1->ipykernel)
+  Using cached pure_eval-0.2.3-py3-none-any.whl.metadata (6.3 kB)
+Using cached pip-25.2-py3-none-any.whl (1.8 MB)
+Using cached ipykernel-6.30.1-py3-none-any.whl (117 kB)
+Using cached comm-0.2.3-py3-none-any.whl (7.3 kB)
+Downloading debugpy-1.8.17-cp310-cp310-win_amd64.whl (5.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.3/5.3 MB 8.7 MB/s eta 0:00:00
+Downloading ipython-8.37.0-py3-none-any.whl (831 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 831.9/831.9 kB 12.4 MB/s eta 0:00:00
+Using cached prompt_toolkit-3.0.52-py3-none-any.whl (391 kB)
+Using cached jedi-0.19.2-py2.py3-none-any.whl (1.6 MB)
+Using cached parso-0.8.5-py2.py3-none-any.whl (106 kB)
+Using cached jupyter_client-8.6.3-py3-none-any.whl (106 kB)
+Using cached jupyter_core-5.8.1-py3-none-any.whl (28 kB)
+Using cached matplotlib_inline-0.1.7-py3-none-any.whl (9.9 kB)
+Using cached nest_asyncio-1.6.0-py3-none-any.whl (5.2 kB)
+Using cached packaging-25.0-py3-none-any.whl (66 kB)
+Using cached platformdirs-4.4.0-py3-none-any.whl (18 kB)
+Using cached psutil-7.1.0-cp37-abi3-win_amd64.whl (247 kB)
+Using cached pygments-2.19.2-py3-none-any.whl (1.2 MB)
+Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+Downloading pywin32-311-cp310-cp310-win_amd64.whl (9.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.6/9.6 MB 17.1 MB/s eta 0:00:00
+Downloading pyzmq-27.1.0-cp310-cp310-win_amd64.whl (632 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 632.2/632.2 kB 24.7 MB/s eta 0:00:00
+Using cached six-1.17.0-py2.py3-none-any.whl (11 kB)
+Downloading tornado-6.5.2-cp39-abi3-win_amd64.whl (445 kB)
+Using cached traitlets-5.14.3-py3-none-any.whl (85 kB)
+Using cached typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+Using cached colorama-0.4.6-py2.py3-none-any.whl (25 kB)
+Using cached decorator-5.2.1-py3-none-any.whl (9.2 kB)
+Downloading exceptiongroup-1.3.0-py3-none-any.whl (16 kB)
+Using cached stack_data-0.6.3-py3-none-any.whl (24 kB)
+Using cached asttokens-3.0.0-py3-none-any.whl (26 kB)
+Using cached executing-2.2.1-py2.py3-none-any.whl (28 kB)
+Using cached pure_eval-0.2.3-py3-none-any.whl (11 kB)
+Using cached wcwidth-0.2.14-py2.py3-none-any.whl (37 kB)
+Installing collected packages: pywin32, pure-eval, wcwidth, typing_extensions, traitlets, tornado, six, pyzmq, pygments, psutil, platformdirs, pip, parso, packaging, nest-asyncio, executing, decorator, debugpy, comm, colorama, asttokens, stack_data, python-dateutil, prompt_toolkit, matplotlib-inline, jupyter-core, jedi, exceptiongroup, jupyter-client, ipython, ipykernel
+  Attempting uninstall: pip
+    Found existing installation: pip 25.1.1
+    Uninstalling pip-25.1.1:
+      Successfully uninstalled pip-25.1.1
+Successfully installed asttokens-3.0.0 colorama-0.4.6 comm-0.2.3 debugpy-1.8.17 decorator-5.2.1 exceptiongroup-1.3.0 executing-2.2.1 ipykernel-6.30.1 ipython-8.37.0 jedi-0.19.2 jupyter-client-8.6.3 jupyter-core-5.8.1 matplotlib-inline-0.1.7 nest-asyncio-1.6.0 packaging-25.0 parso-0.8.5 pip-25.2 platformdirs-4.4.0 prompt_toolkit-3.0.52 psutil-7.1.0 pure-eval-0.2.3 pygments-2.19.2 python-dateutil-2.9.0.post0 pywin32-311 pyzmq-27.1.0 six-1.17.0 stack_data-0.6.3 tornado-6.5.2 traitlets-5.14.3 typing_extensions-4.15.0 wcwidth-0.2.14
+Installed kernelspec tf_env in C:\Users\rimsh\AppData\Roaming\jupyter\kernels\tf_env
+ipykernel installed and kernel registered
+PS C:\Users\rimsh\Desktop\imageNN> & "c:\Users\rimsh\Desktop\imageNN\tf_env\Scripts\python.exe" -m pip install --upgrade pip; & "c:\Users\rimsh\Desktop\imageNN\tf_env\Scripts\python.exe" -m pip install opencv-python numpy pandas seaborn matplotlib scikit-learn
+Requirement already satisfied: pip in c:\users\rimsh\desktop\imagenn\tf_env\lib\site-packages (25.2)
+Collecting opencv-python
+  Using cached opencv_python-4.12.0.88-cp37-abi3-win_amd64.whl.metadata (19 kB)
+Collecting numpy
+  Downloading numpy-2.2.6-cp310-cp310-win_amd64.whl.metadata (60 kB)
+Collecting pandas
+  Downloading pandas-2.3.2-cp310-cp310-win_amd64.whl.metadata (19 kB)
+Collecting seaborn
+  Using cached seaborn-0.13.2-py3-none-any.whl.metadata (5.4 kB)
+Collecting matplotlib
+  Downloading matplotlib-3.10.6-cp310-cp310-win_amd64.whl.metadata (11 kB)
+Collecting scikit-learn
+  Downloading scikit_learn-1.7.2-cp310-cp310-win_amd64.whl.metadata (11 kB)
+Requirement already satisfied: python-dateutil>=2.8.2 in c:\users\rimsh\desktop\imagenn\tf_env\lib\site-packages (from pandas) (2.9.0.post0)
+Collecting pytz>=2020.1 (from pandas)
+  Using cached pytz-2025.2-py2.py3-none-any.whl.metadata (22 kB)
+Collecting tzdata>=2022.7 (from pandas)
+  Using cached tzdata-2025.2-py2.py3-none-any.whl.metadata (1.4 kB)
+Collecting contourpy>=1.0.1 (from matplotlib)
+  Downloading contourpy-1.3.2-cp310-cp310-win_amd64.whl.metadata (5.5 kB)
+Collecting cycler>=0.10 (from matplotlib)
+  Using cached cycler-0.12.1-py3-none-any.whl.metadata (3.8 kB)
+Collecting fonttools>=4.22.0 (from matplotlib)
+  Downloading fonttools-4.60.0-cp310-cp310-win_amd64.whl.metadata (113 kB)
+Collecting kiwisolver>=1.3.1 (from matplotlib)
+  Downloading kiwisolver-1.4.9-cp310-cp310-win_amd64.whl.metadata (6.4 kB)
+Requirement already satisfied: packaging>=20.0 in c:\users\rimsh\desktop\imagenn\tf_env\lib\site-packages (from matplotlib) (25.0)
+Collecting pillow>=8 (from matplotlib)
+  Downloading pillow-11.3.0-cp310-cp310-win_amd64.whl.metadata (9.2 kB)
+Collecting pyparsing>=2.3.1 (from matplotlib)
+  Using cached pyparsing-3.2.5-py3-none-any.whl.metadata (5.0 kB)
+Collecting scipy>=1.8.0 (from scikit-learn)
+  Downloading scipy-1.15.3-cp310-cp310-win_amd64.whl.metadata (60 kB)
+Collecting joblib>=1.2.0 (from scikit-learn)
+  Using cached joblib-1.5.2-py3-none-any.whl.metadata (5.6 kB)
+Collecting threadpoolctl>=3.1.0 (from scikit-learn)
+  Using cached threadpoolctl-3.6.0-py3-none-any.whl.metadata (13 kB)
+Requirement already satisfied: six>=1.5 in c:\users\rimsh\desktop\imagenn\tf_env\lib\site-packages (from python-dateutil>=2.8.2->pandas) (1.17.0)  
+Using cached opencv_python-4.12.0.88-cp37-abi3-win_amd64.whl (39.0 MB)
+Downloading numpy-2.2.6-cp310-cp310-win_amd64.whl (12.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.9/12.9 MB 7.9 MB/s  0:00:01
+Downloading pandas-2.3.2-cp310-cp310-win_amd64.whl (11.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 11.3/11.3 MB 10.1 MB/s  0:00:01
+Using cached seaborn-0.13.2-py3-none-any.whl (294 kB)
+Downloading matplotlib-3.10.6-cp310-cp310-win_amd64.whl (8.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.1/8.1 MB 10.7 MB/s  0:00:00
+Downloading scikit_learn-1.7.2-cp310-cp310-win_amd64.whl (8.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.9/8.9 MB 13.5 MB/s  0:00:00
+Downloading contourpy-1.3.2-cp310-cp310-win_amd64.whl (221 kB)
+Using cached cycler-0.12.1-py3-none-any.whl (8.3 kB)
+Downloading fonttools-4.60.0-cp310-cp310-win_amd64.whl (2.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.3/2.3 MB 10.8 MB/s  0:00:00
+Using cached joblib-1.5.2-py3-none-any.whl (308 kB)
+Downloading kiwisolver-1.4.9-cp310-cp310-win_amd64.whl (73 kB)
+Downloading pillow-11.3.0-cp310-cp310-win_amd64.whl (7.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.0/7.0 MB 15.9 MB/s  0:00:00
+Using cached pyparsing-3.2.5-py3-none-any.whl (113 kB)
+Using cached pytz-2025.2-py2.py3-none-any.whl (509 kB)
+Downloading scipy-1.15.3-cp310-cp310-win_amd64.whl (41.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 41.3/41.3 MB 12.0 MB/s  0:00:03
+Using cached threadpoolctl-3.6.0-py3-none-any.whl (18 kB)
+Using cached tzdata-2025.2-py2.py3-none-any.whl (347 kB)
+Installing collected packages: pytz, tzdata, threadpoolctl, pyparsing, pillow, numpy, kiwisolver, joblib, fonttools, cycler, scipy, pandas, opencv-python, contourpy, scikit-learn, matplotlib, seaborn
+Successfully installed contourpy-1.3.2 cycler-0.12.1 fonttools-4.60.0 joblib-1.5.2 kiwisolver-1.4.9 matplotlib-3.10.6 numpy-2.2.6 opencv-python-4.12.0.88 pandas-2.3.2 pillow-11.3.0 pyparsing-3.2.5 pytz-2025.2 scikit-learn-1.7.2 scipy-1.15.3 seaborn-0.13.2 threadpoolctl-3.6.0 tzdata-2025.2
+PS C:\Users\rimsh\Desktop\imageNN> 

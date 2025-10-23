@@ -1,0 +1,11 @@
+streamlit
+tensorflow
+opencv-python
+pillow
+scikit-learn
+numpy
+# HTTP client used for REST fallback to Generative API
+requests
+# Optional: if we add direct Gemini Generative API support via google libraries
+google-generative-ai
+
